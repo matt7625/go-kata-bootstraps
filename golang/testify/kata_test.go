@@ -5,43 +5,30 @@ import (
 	"testing"
 )
 
-func TestFailing(t *testing.T) {
-	assert.Equal(t, 42, doSomething("a"), "I'm failing you can start with me...")
-}
 
-func TestSomething(t *testing.T) {
-	assert.Equal(t, 42, doSomething("b"), "Answer to the Ultimate Question of Life, the Universe, and Everything")
-}
-
-func TestGen(t *testing.T) {
+func TestManhattanDistance(t *testing.T) {
 	tests := []struct {
 		name     string
-		input    string
+		input1   *point
+		input2 	 *point
 		expected int
 	}{
 		{
-			name:     "with a expected 0",
-			input:    "a",
-			expected: 0,
+			name:     "Simple Positive Case",
+			input1:    newPoint(1,1),
+			input2:    newPoint(2, 2),
+			expected: 2,
 		},
 		{
-			name:     "with b expected 42",
-			input:    "b",
-			expected: 42,
+			name:     "Negative Coordinates",
+			input1:   newPoint(-1, 14),
+			input2:   newPoint(10, -23),
+			expected: 48,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := doSomething(tt.input); got != tt.expected {
-				t.Errorf("doSomething() = %v, but expected %v", got, tt.expected)
-			}
+			assert.Equal(t, tt.expected, ManhattanDistance(tt.input1, tt.input2))
 		})
 	}
-}
-
-func doSomething(input string) interface{} {
-	if input == "b" {
-		return 42
-	}
-	return 0
 }
